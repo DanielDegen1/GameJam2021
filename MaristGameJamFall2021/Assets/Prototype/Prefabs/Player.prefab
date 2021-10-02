@@ -450,8 +450,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  projectile: {fileID: 0}
-  sourcePoint: {fileID: 0}
+  projectile: {fileID: 3489198601530225448, guid: b5ec9996c50795843a7b5312ab28fa6a, type: 3}
+  sourcePoint: {fileID: 8140896611726866670}
   projectileSpeed: 30
 --- !u!143 &7085721664118310501
 CharacterController:

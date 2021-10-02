@@ -9,6 +9,8 @@ public class PlayerMovement : InterpolatedTransform
     public float walkSpeed = 4.0f;
     public float runSpeed = 8.0f;
     public float crouchSpeed = 2f;
+    public float playerHealth = 2.0f;
+    RaycastHit hit;
     [SerializeField]
     private float jumpSpeed = 8.0f;
     [SerializeField]
