@@ -136,6 +136,14 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public bool Reload
+    {
+        get
+        {
+            return playerControls.PlayerMovement.Reload.triggered;
+        }
+    }
+
 
     /*
     public bool throw {

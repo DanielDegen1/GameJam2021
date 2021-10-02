@@ -8,6 +8,7 @@ public class Shooting : MonoBehaviour
     PlayerInput playerInput;
     RaycastHit hit;
     public float pistolCD = 0.5f;
+    public int pistolClip = 8;
     [HideInInspector]
     public Camera cam;
     public bool hasPistol = true;
@@ -18,13 +19,15 @@ public class Shooting : MonoBehaviour
     private bool projectileTest = false;
     private float timeSinceLastShot = 0;
     private bool playerShot = false;
-    private bool shootCDTest = true; //DEBUG VARIABLE for testing shooting CDs
     private Vector3 destination;
     private bool playerCanShoot = true;
+    private int currentClip; //TODO update clip to match currently equipped gun
+    
 
     void Start() {
         cam = Camera.main;
         playerInput = GetComponent<PlayerInput>();
+        currentClip = pistolClip;
     }
 
     void Update() {
@@ -46,14 +49,14 @@ public class Shooting : MonoBehaviour
             {
                 pistolShoot();
             }
-            else if(pistolCD >= timeSinceLastShot && shootCDTest == true) //debug conditional for the pistol CD
-            {
-                Debug.Log("The player tried to shoot their pistol while it was on CD");
-            }
             if (projectileTest == true)
             {
                 InstantiateProjectile(sourcePoint);
             }
+        }
+        if (playerInput.Reload || currentClip <= 0)
+        {
+            Reload();
         }
     }
 
@@ -91,5 +94,14 @@ public class Shooting : MonoBehaviour
         }
         playerShot = true;
         playerCanShoot = false;
+        currentClip--;
+    }
+    void Reload() //TODO add a delay to the reload
+    {
+        if (hasPistol == true)
+        { 
+            Debug.Log("Pistol Reloaded");
+            currentClip = pistolClip;
+        }
     }
 }
