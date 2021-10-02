@@ -13,7 +13,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.988579, y: 2.5645175, z: 0.71489143}
   m_Center: {x: 1.5625858, y: 0.17639685, z: 0.10228111}
---- !u!114 &-7920585497814335094
+--- !u!114 &429225441789515333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2220562948487737718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251a465c6d1025c4d98bae294640c8ae, type: 3}
+  m_Script: {fileID: 11500000, guid: c8d028e9645e14fc489ed15490a2082c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRate: 45
@@ -30,6 +30,19 @@ MonoBehaviour:
   respawnPos: {x: -1000, y: -1000, z: -1000}
   pickedUp: 0
   objectNotMoved: 0
+--- !u!114 &1844759470309990195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2220562948487737718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a4ce5efd0e4674ab46f65625ff3831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationRate: 45
 --- !u!1001 &1301663357988523047
 PrefabInstance:
   m_ObjectHideFlags: 0

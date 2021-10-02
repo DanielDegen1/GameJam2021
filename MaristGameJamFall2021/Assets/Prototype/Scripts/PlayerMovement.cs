@@ -10,6 +10,8 @@ public class PlayerMovement : InterpolatedTransform
     public float runSpeed = 8.0f;
     public float crouchSpeed = 2f;
     public float playerHealth = 3.0f;
+    public float invincibleTime = 2.0f;
+    private float timer;
     RaycastHit hit;
     [SerializeField]
     private float jumpSpeed = 8.0f;
@@ -20,6 +22,7 @@ public class PlayerMovement : InterpolatedTransform
     [HideInInspector]
     public Vector3 moveDirection = Vector3.zero;
     [HideInInspector]
+    public bool invincible = false;
     public Vector3 contactPoint;
     [HideInInspector]
     public CharacterController controller;
@@ -70,11 +73,21 @@ public class PlayerMovement : InterpolatedTransform
 
     public override void Update()
     {
-        if(playerHealth == 0 && dead == false)
+        if (playerHealth == 0 && dead == false)
         {
             Debug.Log("Player Died :(");
             dead = true; //just so that the debug log doesnt get spammed lulw
             //TODO respawn when player runs out of health
+        }
+        if(invincible == true)
+        {
+           timer += Time.deltaTime;
+           if(timer >= invincibleTime)
+           {
+                Debug.Log("Player is no longer invincible");
+                invincible = false;
+                timer = 0;
+           }
         }
         Vector3 newestTransform = m_lastPositions[m_newTransformIndex];
         Vector3 olderTransform = m_lastPositions[OldTransformIndex()];

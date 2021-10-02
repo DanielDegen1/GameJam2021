@@ -100,11 +100,9 @@ public class Shooting : MonoBehaviour
                 playerCanShoot = true;
                 timeSinceLastShot = 0;
             }
-<<<<<<< Updated upstream
                 //TODO implement conditional to track if the player can shoot their gun
         }
-=======
->>>>>>> Stashed changes
+
         if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip|| playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0) //TODO implement reloading indicator and delay
         {
             Reload();
@@ -132,7 +130,17 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("Pistol hit player");
-            hit.transform.GetComponent<PlayerMovement>().playerHealth-= pistolDMG;
+            if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+            {
+                Debug.Log("and they take dmg!");
+                Debug.Log("Player is now invincible");
+                hit.transform.GetComponent<PlayerMovement>().playerHealth -= pistolDMG;
+                hit.transform.GetComponent<PlayerMovement>().invincible = true;
+            }
+            else
+            {
+                Debug.Log("but the player was invincible");
+            }
 
         }
         else if (hit.collider.gameObject.tag != "Player")
@@ -153,7 +161,13 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("SMG hit player");
-            hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
+            if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+            {
+                Debug.Log("and they take dmg!");
+                Debug.Log("Player is now invincible");
+                hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
+                hit.transform.GetComponent<PlayerMovement>().invincible = true;
+            }
 
         }
         else if (hit.collider.gameObject.tag != "Player")
@@ -177,15 +191,18 @@ public class Shooting : MonoBehaviour
             localOffset.y += randomY;
             localOffset.x += randomX;
             shotgunAngle = new Vector3 (cam.transform.position.x + localOffset.x, cam.transform.position.y + localOffset.y, cam.transform.position.z);
-<<<<<<< Updated upstream
             Debug.Log("Shotgun fired");
-=======
->>>>>>> Stashed changes
+
             if (Physics.Raycast(shotgunAngle, cam.transform.forward, out hit, shotgunRange) && hit.collider.gameObject.tag == "Player")
             {
                 Debug.Log("Shotgun hit player");
-                hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
-
+                if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+                {
+                    Debug.Log("and they take dmg!");
+                    Debug.Log("Player is now invincible");
+                    hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
+                    hit.transform.GetComponent<PlayerMovement>().invincible = true;
+                }
             }
             else if (hit.collider.gameObject.tag != "Player")
             {
