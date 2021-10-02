@@ -7,16 +7,25 @@ public class Shooting : MonoBehaviour
 {
     PlayerInput playerInput;
     RaycastHit hit;
-    private float healthHit;
-    public float pistolCD = 0.5f;
+    public bool hasPistol = false; //TODO set back to true once SMG and Shotgun are implemented
     public int pistolClip = 8;
-    public int SMGClip = 30;
-    public bool hasSMG = true; //TODO set back to false and private since its only public for testing purposes
+    public float pistolCD = 0.5f;
     public float pistolDMG = 1.0f;
+
+    public bool hasSMG = false;
+    public int SMGClip = 30;
     public float SMGDMG = 0.2f;
+
+    public bool hasShotgun = true; //TODO set back to false after implementation
+    public int shotgunClip = 8;
+    public float shotgunCD = 2.0f;
+    public float shotgunDMG = 1.5f;
+    public float shotgunRange = 400f;
+    public int shotgunPellets = 7;
+
+
     [HideInInspector]
     public Camera cam;
-    public bool hasPistol = false; //TODO set back to true once SMG and Shotgun are implemented
     [SerializeField]
     private GameObject projectile;
     [SerializeField]
@@ -28,32 +37,49 @@ public class Shooting : MonoBehaviour
     private bool playerShot = false;
     private Vector3 destination;
     private bool playerCanShoot = true;
-    private int currentClip; 
-    
+    private int currentClip;
+    private float randomX;
+    private float randomY;
+    private Vector2 localOffset;
+    private Vector3 shotgunAngle;
 
     void Start() {
         cam = Camera.main;
         playerInput = GetComponent<PlayerInput>();
-        //currentClip = pistolClip; 
-        currentClip = SMGClip;
+        if (hasPistol == true)
+        {
+            currentClip = pistolClip;
+        }
+        else if (hasSMG == true)
+        {
+            currentClip = SMGClip;
+        }
+        else if(hasShotgun == true)
+        {
+            currentClip = shotgunClip;
+        }
     }
 
     void Update() {
 
         if (playerInput.shoot) {
-            //TODO different conditionals for each gun type we have 
-            if(hasPistol == true && playerCanShoot == true)
+            if (hasPistol == true && playerCanShoot == true)
             {
                 pistolShoot();
             }
-            else if(hasSMG == true && playerCanShoot == true)
+            else if (hasSMG == true && playerCanShoot == true)
             {
                 SMGShoot();
+            }
+            else if (hasShotgun == true && playerCanShoot == true)
+            {
+                ShotgunShoot();
             }
             else if (projectileTest == true)
             {
                 InstantiateProjectile(sourcePoint);
             }
+            
             /*else
             {
                 Debug.Log("Player Attempted to Fire but none of the shoot functions went off. Current clip size is: " + currentClip);
@@ -68,9 +94,18 @@ public class Shooting : MonoBehaviour
                 playerCanShoot = true;
                 timeSinceLastShot = 0;
             }
-                //TODO implement conditional to track if the player can shoot their gun
+            else if(hasShotgun == true && timeSinceLastShot >= shotgunCD)
+            {
+                playerShot = false;
+                playerCanShoot = true;
+                timeSinceLastShot = 0;
             }
-        if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || currentClip <= 0) //TODO implement reloading indicator and delay
+<<<<<<< Updated upstream
+                //TODO implement conditional to track if the player can shoot their gun
+        }
+=======
+>>>>>>> Stashed changes
+        if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip|| playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0) //TODO implement reloading indicator and delay
         {
             Reload();
         }
@@ -118,7 +153,7 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("SMG hit player");
-            hit.transform.GetComponent<PlayerMovement>().playerHealth-= SMGDMG;
+            hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
 
         }
         else if (hit.collider.gameObject.tag != "Player")
@@ -132,6 +167,41 @@ public class Shooting : MonoBehaviour
 
         currentClip--;
     }
+    void ShotgunShoot()
+    {
+        for (var i = 0; i < shotgunPellets; i++)
+        { //For each pellet create a random origin and fire
+
+            randomX = Random.Range(-1.0f, 1.0f);
+            randomY = Random.Range(-1.0f, 1.0f);
+            localOffset.y += randomY;
+            localOffset.x += randomX;
+            shotgunAngle = new Vector3 (cam.transform.position.x + localOffset.x, cam.transform.position.y + localOffset.y, cam.transform.position.z);
+<<<<<<< Updated upstream
+            Debug.Log("Shotgun fired");
+=======
+>>>>>>> Stashed changes
+            if (Physics.Raycast(shotgunAngle, cam.transform.forward, out hit, shotgunRange) && hit.collider.gameObject.tag == "Player")
+            {
+                Debug.Log("Shotgun hit player");
+                hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
+
+            }
+            else if (hit.collider.gameObject.tag != "Player")
+            {
+                Debug.Log("Shotgun hit something besides the player");
+            }
+            else
+            {
+                Debug.Log("Shotgun missed");
+            }
+        }
+        playerShot = true;
+        playerCanShoot = false;
+        currentClip--;
+
+    }
+    
     void Reload()
     {
         if (hasPistol == true)
@@ -143,6 +213,11 @@ public class Shooting : MonoBehaviour
         {
             Debug.Log("SMG reloaded");
             currentClip = SMGClip;
+        }
+        else if(hasShotgun == true)
+        {
+            Debug.Log("Shotgun reloaded");
+            currentClip = shotgunClip;
         }
     }
 
