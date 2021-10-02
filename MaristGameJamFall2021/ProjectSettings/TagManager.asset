@@ -3,12 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Destination
+  - Projectile
+  - Pistol
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pickups
   - Water
   - UI
   - 
