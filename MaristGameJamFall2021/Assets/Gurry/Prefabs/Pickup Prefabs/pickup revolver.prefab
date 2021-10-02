@@ -8,7 +8,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2220562948487737718}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.988579, y: 2.5645175, z: 0.71489143}
@@ -25,6 +25,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251a465c6d1025c4d98bae294640c8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationRate: 45
+  respawnTimer: 5
+  respawnPos: {x: -1000, y: -1000, z: -1000}
+  pickedUp: 0
+  objectNotMoved: 0
 --- !u!1001 &1301663357988523047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,6 +84,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9c7b140556af14d028cf9b5fbd2340fa, type: 3}
       propertyPath: m_Name
       value: pickup revolver
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9c7b140556af14d028cf9b5fbd2340fa, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9c7b140556af14d028cf9b5fbd2340fa, type: 3}
+      propertyPath: m_TagString
+      value: Pistol
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c7b140556af14d028cf9b5fbd2340fa, type: 3}

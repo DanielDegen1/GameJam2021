@@ -101,12 +101,29 @@ public class Shooting : MonoBehaviour
         playerCanShoot = false;
         currentClip--;
     }
-    void Reload() //TODO add a delay to the reload
+    void Reload()
     {
         if (hasPistol == true)
-        { 
+        {
             Debug.Log("Pistol Reloaded");
             currentClip = pistolClip;
+        }
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Pickups"))
+        {
+            Debug.Log("Item Picked Up");
+            if(other.gameObject.tag == "Pistol" && hasPistol == false)
+            {
+                hasPistol = true;
+                currentClip = pistolClip;
+            }
+            other.GetComponent<PickupObject>().pickedUp = true;
+            other.GetComponent<PickupObject>().objectNotMoved = true;
+
         }
     }
 }
