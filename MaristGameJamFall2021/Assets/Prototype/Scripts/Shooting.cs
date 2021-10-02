@@ -15,6 +15,8 @@ public class Shooting : MonoBehaviour
     public bool hasPistol = true;
     [SerializeField]
     private GameObject projectile;
+    [SerializeField]
+    private Animator gunAnim;
     public Transform sourcePoint;
     public float projectileSpeed = 30f;
     private bool projectileTest = false;
@@ -94,6 +96,7 @@ public class Shooting : MonoBehaviour
             Debug.Log("Pistol missed");
             //missed stasis feedback
         }
+        gunAnim.SetTrigger("Fire");
         playerShot = true;
         playerCanShoot = false;
         currentClip--;

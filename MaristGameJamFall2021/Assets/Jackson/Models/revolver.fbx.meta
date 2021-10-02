@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 9c7b140556af14d028cf9b5fbd2340fa
+guid: a39214155835b4f368b6f7c0fac1d7ab
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -623603649343465320
-    second: Scene
+      74: -8462093940591089753
+    second: Gun|Fire
+  - first:
+      74: 8714723829453138602
+    second: Gun|Idle
   externalObjects:
   - first:
       type: UnityEngine:Material
