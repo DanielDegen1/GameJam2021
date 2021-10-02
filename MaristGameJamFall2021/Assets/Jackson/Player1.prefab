@@ -226,7 +226,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 97
+    m_Bits: 105
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -712,10 +712,12 @@ MonoBehaviour:
   runSpeed: 8
   crouchSpeed: 2
   playerHealth: 3
+  invincibleTime: 2
   jumpSpeed: 8
   gravity: 20
   antiBumpFactor: 0.75
   moveDirection: {x: 0, y: 0, z: 0}
+  invincible: 0
   contactPoint: {x: 0, y: 0, z: 0}
   controller: {fileID: 0}
   playerControl: 0
@@ -745,10 +747,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69a7bffb700a1d42a9e2715ad1ecf80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pistolCD: 0.5
-  pistolClip: 8
-  cam: {fileID: 0}
   hasPistol: 1
+  pistolClip: 8
+  pistolCD: 0.5
+  pistolDMG: 1
+  hasSMG: 0
+  SMGClip: 30
+  SMGDMG: 0.2
+  hasShotgun: 1
+  shotgunClip: 8
+  shotgunCD: 2
+  shotgunDMG: 1.5
+  shotgunRange: 400
+  shotgunPellets: 7
+  cam: {fileID: 0}
   projectile: {fileID: 3489198601530225448, guid: b5ec9996c50795843a7b5312ab28fa6a, type: 3}
   gunAnim: {fileID: 1284932920582050574}
   sourcePoint: {fileID: 8140896611726866670}
