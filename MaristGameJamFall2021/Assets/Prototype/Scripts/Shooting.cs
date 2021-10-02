@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour
 {
     PlayerInput playerInput;
     RaycastHit hit;
+    private float healthHit;
     public float pistolCD = 0.5f;
     public int pistolClip = 8;
     [HideInInspector]
@@ -81,7 +82,8 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("Pistol hit player");
-            //TODO cause the affected player to lose health
+            hit.transform.GetComponent<PlayerMovement>().playerHealth--;
+
         }
         else if (hit.collider.gameObject.tag != "Player")
         {

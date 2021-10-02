@@ -9,7 +9,7 @@ public class PlayerMovement : InterpolatedTransform
     public float walkSpeed = 4.0f;
     public float runSpeed = 8.0f;
     public float crouchSpeed = 2f;
-    public float playerHealth = 2.0f;
+    public float playerHealth = 3.0f;
     RaycastHit hit;
     [SerializeField]
     private float jumpSpeed = 8.0f;
@@ -33,6 +33,7 @@ public class PlayerMovement : InterpolatedTransform
     private bool forceGravity;
     private float forceTime = 0;
     private float jumpPower;
+    private bool dead = false;
     UnityEvent onReset = new UnityEvent();
 
     public override void OnEnable()
@@ -69,6 +70,12 @@ public class PlayerMovement : InterpolatedTransform
 
     public override void Update()
     {
+        if(playerHealth == 0 && dead == false)
+        {
+            Debug.Log("Player Died :(");
+            dead = true; //just so that the debug log doesnt get spammed lulw
+            //TODO respawn when player runs out of health
+        }
         Vector3 newestTransform = m_lastPositions[m_newTransformIndex];
         Vector3 olderTransform = m_lastPositions[OldTransformIndex()];
 
