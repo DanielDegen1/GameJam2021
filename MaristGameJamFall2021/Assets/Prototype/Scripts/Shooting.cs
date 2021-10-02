@@ -239,19 +239,35 @@ public class Shooting : MonoBehaviour
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Pickups"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Pickups") && playerInput.Pickup)
         {
-            Debug.Log("Item Picked Up");
+            Debug.Log("Picked Up: "+other.gameObject.tag);
             if(other.gameObject.tag == "Pistol" && hasPistol == false)
             {
                 hasPistol = true;
+                hasSMG = false;
+                hasShotgun = false;
                 currentClip = pistolClip;
+            }
+            else if (other.gameObject.tag == "SMG" && hasSMG == false)
+            {
+                hasPistol = false;
+                hasSMG = true;
+                hasShotgun = false; 
+                currentClip = SMGClip;
+            }
+            else if (other.gameObject.tag == "Shotgun" && hasShotgun == false)
+            {
+                hasPistol = false;
+                hasSMG = false;
+                hasShotgun = true;
+                currentClip = shotgunClip;
             }
             other.GetComponent<PickupObject>().pickedUp = true;
             other.GetComponent<PickupObject>().objectNotMoved = true;
-
         }
+
     }
 }

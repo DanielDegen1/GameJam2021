@@ -144,6 +144,15 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public bool Pickup
+    {
+        get
+        {
+            return playerControls.PlayerMovement.Pickup.triggered;
+        }
+
+    }
+
 
     /*
     public bool throw {

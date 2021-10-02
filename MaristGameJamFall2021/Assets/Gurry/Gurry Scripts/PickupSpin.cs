@@ -14,7 +14,17 @@ public class PickupSpin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(rotationRate/2, rotationRate, 0) * Time.deltaTime);
-
+        if(gameObject.tag == "Pistol")
+        {
+            transform.Rotate(new Vector3(rotationRate / 2, rotationRate, 0) * Time.deltaTime);
+        }
+        else if (gameObject.tag == "SMG")
+        {
+            transform.Rotate(new Vector3(0, rotationRate * -1, 0) * Time.deltaTime);
+        }
+        else if (gameObject.tag == "Shotgun")
+        {
+            transform.Rotate(new Vector3(0, rotationRate * -1, 0) * Time.deltaTime);
+        }
     }
 }
