@@ -129,6 +129,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Swap "",
+                    ""type"": ""Button"",
+                    ""id"": ""91d6df7f-0497-4d22-a28f-005144e3a49f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -461,6 +469,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Pickup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08b574d2-af53-452b-a920-455329430f18"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Swap "",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f0bb5cc-892f-4fee-a96b-7a3cd12ac804"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Swap "",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -506,6 +536,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_PlayerMovement_Pause = m_PlayerMovement.FindAction("Pause", throwIfNotFound: true);
         m_PlayerMovement_Reload = m_PlayerMovement.FindAction("Reload", throwIfNotFound: true);
         m_PlayerMovement_Pickup = m_PlayerMovement.FindAction("Pickup", throwIfNotFound: true);
+        m_PlayerMovement_Swap = m_PlayerMovement.FindAction("Swap ", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -569,6 +600,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_Pause;
     private readonly InputAction m_PlayerMovement_Reload;
     private readonly InputAction m_PlayerMovement_Pickup;
+    private readonly InputAction m_PlayerMovement_Swap;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -587,6 +619,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_PlayerMovement_Pause;
         public InputAction @Reload => m_Wrapper.m_PlayerMovement_Reload;
         public InputAction @Pickup => m_Wrapper.m_PlayerMovement_Pickup;
+        public InputAction @Swap => m_Wrapper.m_PlayerMovement_Swap;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -638,6 +671,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Pickup.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
                 @Pickup.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
                 @Pickup.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnPickup;
+                @Swap.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSwap;
+                @Swap.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSwap;
+                @Swap.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnSwap;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -684,6 +720,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Pickup.started += instance.OnPickup;
                 @Pickup.performed += instance.OnPickup;
                 @Pickup.canceled += instance.OnPickup;
+                @Swap.started += instance.OnSwap;
+                @Swap.performed += instance.OnSwap;
+                @Swap.canceled += instance.OnSwap;
             }
         }
     }
@@ -722,5 +761,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
+        void OnSwap(InputAction.CallbackContext context);
     }
 }
