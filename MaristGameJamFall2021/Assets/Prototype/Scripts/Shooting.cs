@@ -10,9 +10,13 @@ public class Shooting : MonoBehaviour
     private float healthHit;
     public float pistolCD = 0.5f;
     public int pistolClip = 8;
+    public int SMGClip = 30;
+    public bool hasSMG = true; //TODO set back to false and private since its only public for testing purposes
+    public float pistolDMG = 1.0f;
+    public float SMGDMG = 0.2f;
     [HideInInspector]
     public Camera cam;
-    public bool hasPistol = true;
+    public bool hasPistol = false; //TODO set back to true once SMG and Shotgun are implemented
     [SerializeField]
     private GameObject projectile;
     [SerializeField]
@@ -24,40 +28,49 @@ public class Shooting : MonoBehaviour
     private bool playerShot = false;
     private Vector3 destination;
     private bool playerCanShoot = true;
-    private int currentClip; //TODO update clip to match currently equipped gun
+    private int currentClip; 
     
 
     void Start() {
         cam = Camera.main;
         playerInput = GetComponent<PlayerInput>();
-        currentClip = pistolClip;
+        //currentClip = pistolClip; 
+        currentClip = SMGClip;
     }
 
     void Update() {
-        if(playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
-        {
-            timeSinceLastShot += Time.deltaTime;
-            if(hasPistol == true && timeSinceLastShot >= pistolCD)
-            {
-                playerShot = false;
-                playerCanShoot = true;
-                timeSinceLastShot = 0;
-            }
-            
-            //TODO implement conditional to track if the player can shoot their gun
-        }
+
         if (playerInput.shoot) {
             //TODO different conditionals for each gun type we have 
             if(hasPistol == true && playerCanShoot == true)
             {
                 pistolShoot();
             }
-            if (projectileTest == true)
+            else if(hasSMG == true && playerCanShoot == true)
+            {
+                SMGShoot();
+            }
+            else if (projectileTest == true)
             {
                 InstantiateProjectile(sourcePoint);
             }
+            /*else
+            {
+                Debug.Log("Player Attempted to Fire but none of the shoot functions went off. Current clip size is: " + currentClip);
+            }*/
         }
-        if (playerInput.Reload || currentClip <= 0)
+        if (playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
+        {
+            timeSinceLastShot += Time.deltaTime;
+            if (hasPistol == true && timeSinceLastShot >= pistolCD)
+            {
+                playerShot = false;
+                playerCanShoot = true;
+                timeSinceLastShot = 0;
+            }
+                //TODO implement conditional to track if the player can shoot their gun
+            }
+        if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || currentClip <= 0) //TODO implement reloading indicator and delay
         {
             Reload();
         }
@@ -84,7 +97,7 @@ public class Shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
         {
             Debug.Log("Pistol hit player");
-            hit.transform.GetComponent<PlayerMovement>().playerHealth--;
+            hit.transform.GetComponent<PlayerMovement>().playerHealth-= pistolDMG;
 
         }
         else if (hit.collider.gameObject.tag != "Player")
@@ -94,11 +107,29 @@ public class Shooting : MonoBehaviour
         else
         {
             Debug.Log("Pistol missed");
-            //missed stasis feedback
         }
         gunAnim.SetTrigger("Fire");
         playerShot = true;
         playerCanShoot = false;
+        currentClip--;
+    }
+    void SMGShoot()
+    {
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
+        {
+            Debug.Log("SMG hit player");
+            hit.transform.GetComponent<PlayerMovement>().playerHealth-= SMGDMG;
+
+        }
+        else if (hit.collider.gameObject.tag != "Player")
+        {
+            Debug.Log("SMG hit something besides the player");
+        }
+        else
+        {
+            Debug.Log("SMG missed");
+        }
+
         currentClip--;
     }
     void Reload()
@@ -107,6 +138,11 @@ public class Shooting : MonoBehaviour
         {
             Debug.Log("Pistol Reloaded");
             currentClip = pistolClip;
+        }
+        else if(hasSMG == true)
+        {
+            Debug.Log("SMG reloaded");
+            currentClip = SMGClip;
         }
     }
 
