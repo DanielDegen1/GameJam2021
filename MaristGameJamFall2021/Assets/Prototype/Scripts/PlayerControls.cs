@@ -244,7 +244,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""b7503be5-90eb-4c1e-a6cd-6e7f11d3e512"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=2.2,y=2.2)"",
                     ""groups"": ""Controller"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -297,7 +297,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f7ba7a50-c4d0-4495-bf5f-28979652a8c1"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
