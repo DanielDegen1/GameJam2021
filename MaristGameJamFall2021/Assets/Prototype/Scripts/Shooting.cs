@@ -32,7 +32,6 @@ public class Shooting : MonoBehaviour
     private Animator gunAnim;
     public Transform sourcePoint;
     public float projectileSpeed = 30f;
-    private bool projectileTest = false;
     private float timeSinceLastShot = 0;
     private bool playerShot = false;
     private Vector3 destination;
