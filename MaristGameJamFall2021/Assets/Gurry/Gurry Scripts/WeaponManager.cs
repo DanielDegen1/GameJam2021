@@ -8,6 +8,9 @@ public class WeaponManager : MonoBehaviour
     private int selectedWeapon;
     public GameObject[] Weapons;
     // Start is called before the first frame update
+
+        //TODO store players currently equipped wep and secondary wep
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -17,11 +20,12 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (playerInput.Swap)
         {
-            
-                selectedWeapon++;
+            //SelectWEapon() currently commentted out until this is properly implemented    
         }
+        */
     }
     void SelectWeapon()
     {

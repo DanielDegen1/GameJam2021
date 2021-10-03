@@ -62,7 +62,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
 
-        if (playerInput.shoot)
+        if (playerInput.shoot && currentClip > 0)
         {
             if (hasPistol == true && playerCanShoot == true)
             {
@@ -76,39 +76,36 @@ public class Shooting : MonoBehaviour
             {
                 ShotgunShoot();
             }
-            else if (playerInput.Swap)
+            else
             {
-
+                Debug.Log("Player shot but none of the shot functions were called");
             }
-            if (playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
-            {
-                timeSinceLastShot += Time.deltaTime;
-                if (hasPistol == true && timeSinceLastShot >= pistolCD)
+        }
+
+        if (playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
+        {
+            timeSinceLastShot += Time.deltaTime;
+            if (hasPistol == true && timeSinceLastShot >= pistolCD)
                 {
                     playerShot = false;
                     playerCanShoot = true;
                     timeSinceLastShot = 0;
                 }
-                else if (hasShotgun == true && timeSinceLastShot >= shotgunCD)
+            else if (hasShotgun == true && timeSinceLastShot >= shotgunCD)
                 {
                     playerShot = false;
                     playerCanShoot = true;
                     timeSinceLastShot = 0;
                 }
                 //TODO implement conditional to track if the player can shoot their gun
-            }
+        }
 
-            if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0) //TODO implement reloading indicator and delay
+            if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0 && playerInput.shoot) //TODO implement reloading indicator and delay
             {
-                Reload();
+              Reload();
             }
-        }
     }
-
-        void Swap()
-        {
-
-        }
+    
 
         void pistolShoot()
         {
