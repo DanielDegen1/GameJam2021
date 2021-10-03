@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 188c8ae1d60a5e34faaf71d8ee55a065, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 123caa41e84e041d0bd65bb3ae888dd1, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3690428, g: 0.4956156, b: 0.5144554, a: 1}
+  m_IndirectSpecularColor: {r: 0.47595632, g: 0.76417935, b: 0.9345784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2625,75 +2625,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400416, guid: 208ca54455d8ac34d8e8c32f367a245d, type: 3}
   m_PrefabInstance: {fileID: 1760742226}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &667867275
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 399.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -334.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.00000003774895
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556792535319391180, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2220562948487737718, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
-      propertyPath: m_Name
-      value: pickup revolver
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac82dbc8813577347b472e49acb18f63, type: 3}
 --- !u!4 &669230050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4174875708765392, guid: 6e39b733a9d84744f8ce0a261bea773d, type: 3}
