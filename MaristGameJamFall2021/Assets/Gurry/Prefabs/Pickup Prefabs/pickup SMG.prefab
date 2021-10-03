@@ -91,6 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4902212031249815540}
   - component: {fileID: 2735840175104318812}
+  - component: {fileID: 283505793661684447}
+  - component: {fileID: 6512381667701943692}
   m_Layer: 3
   m_Name: pickup SMG
   m_TagString: SMG
@@ -128,6 +130,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.055239934, y: 0.063269496, z: 0.060597513}
   m_Center: {x: 0.0002560854, y: -0.0009183003, z: -0.0027093017}
+--- !u!114 &283505793661684447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197912594723136432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d028e9645e14fc489ed15490a2082c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationRate: 45
+  respawnTimer: 5
+  respawnPos: {x: -1000, y: -1000, z: -1000}
+  pickedUp: 0
+  objectNotMoved: 0
+--- !u!114 &6512381667701943692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197912594723136432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a4ce5efd0e4674ab46f65625ff3831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationRate: 45
 --- !u!1 &6673630155202688046
 GameObject:
   m_ObjectHideFlags: 0

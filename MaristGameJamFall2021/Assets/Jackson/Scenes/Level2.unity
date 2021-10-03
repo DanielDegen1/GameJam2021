@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13041,8 +13041,24 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4247327821211603276, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247327821211603276, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247327821211603276, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585780713190679759, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
+      propertyPath: hasShotgun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585780713190679759, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
+      propertyPath: pistolClip
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7085721664118310500, guid: 40fbf8dcdad1b4d059117ef3e84ff355, type: 3}
       propertyPath: m_RootOrder
