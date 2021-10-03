@@ -12,6 +12,8 @@ public class PlayerMovement : InterpolatedTransform
     public float playerHealth = 3.0f;
     public float invincibleTime = 2.0f;
     private float timer;
+    private float startingHealth;
+    public respawnManager respawn;
     RaycastHit hit;
     [SerializeField]
     private float jumpSpeed = 8.0f;
@@ -43,11 +45,15 @@ public class PlayerMovement : InterpolatedTransform
     {
         base.OnEnable();
         controller = GetComponent<CharacterController>();
+        startingHealth = playerHealth;
+
     }
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        startingHealth = playerHealth;
+
     }
 
     public void AddToReset(UnityAction call)
@@ -75,9 +81,8 @@ public class PlayerMovement : InterpolatedTransform
     {
         if (playerHealth == 0 && dead == false)
         {
-            Debug.Log("Player Died :(");
-            dead = true; //just so that the debug log doesnt get spammed lulw
-            //TODO respawn when player runs out of health
+            transform.position = respawn.respawnPlayer();
+            playerHealth = startingHealth;
         }
         if(invincible == true)
         {
