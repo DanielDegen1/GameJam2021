@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
-    private PlayerInput playerInput;
+    [SerializeField]
+    public InputController inputController;
 
     Vector2 _mouseAbsolute;
     Vector2 _smoothMouse;
@@ -25,7 +26,7 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        playerInput = PlayerInput.Instance;
+        //inputController = InputController.Instance;
         // Set target direction to the camera's initial orientation.
         targetDirection = transform.localRotation.eulerAngles;
 
@@ -43,7 +44,7 @@ public class CameraMovement : MonoBehaviour
         var targetCharacterOrientation = Quaternion.Euler(targetCharacterDirection);
 
         // Get raw mouse input for a cleaner reading on more sensitive mice.
-        var mouseDelta = playerInput.GetMouseDelta();
+        var mouseDelta = inputController.GetMouseDelta();
         // Scale input against the sensitivity setting and multiply that against the smoothing value.
         mouseDelta = Vector2.Scale(mouseDelta, new Vector2(sensitivity.x * smoothing.x, sensitivity.y * smoothing.y));
 

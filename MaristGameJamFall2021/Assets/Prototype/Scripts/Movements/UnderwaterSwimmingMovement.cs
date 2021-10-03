@@ -8,7 +8,7 @@ public class UnderwaterSwimmingMovement : MovementType
 {
     SurfaceSwimmingMovement swimming;
 
-    public override void SetPlayerComponents(PlayerMovement move, PlayerInput input)
+    public override void SetPlayerComponents(PlayerMovement move, InputController input)
     {
         base.SetPlayerComponents(move, input);
         swimming = GetComponent<SurfaceSwimmingMovement>();
@@ -16,8 +16,8 @@ public class UnderwaterSwimmingMovement : MovementType
 
     public override void Movement()
     {
-        Vector3 swim = swimming.cameraMovement.TransformDirection(new Vector3(playerInput.input.x, 0, playerInput.input.y)) * 2f;
-        swim += Vector3.up * playerInput.elevate;
+        Vector3 swim = swimming.cameraMovement.TransformDirection(new Vector3(inputController.input.x, 0, inputController.input.y)) * 2f;
+        swim += Vector3.up * inputController.elevate;
         swim = Vector3.ClampMagnitude(swim, 2f);
         movement.Move(swim, 1f, 0f);
     }

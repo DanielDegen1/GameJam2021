@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Pausing : MonoBehaviour
 {
-    private PlayerInput playerInput;
+    private InputController inputController;
     public GameObject player;
     public GameObject pauseMenu;
     public bool isPaused;
     // Start is called before the first frame update
 
     void Start() {
-        playerInput = player.GetComponent<PlayerInput>();
+        inputController = player.GetComponent<InputController>();
     }
 
     void Awake()
@@ -25,7 +25,7 @@ public class Pausing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerInput.Pause)
+        if (inputController.Pause)
         {
             if(isPaused)
             {

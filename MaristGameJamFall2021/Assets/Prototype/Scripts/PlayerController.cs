@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public enum Status { idle, walking, crouching, sprinting, sliding, climbingLadder, wallRunning, vaulting, grabbedLedge, climbingLedge, surfaceSwimming, underwaterSwimming }
 public class StatusEvent : UnityEvent<Status, Func<IKData>> { }
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(InputController))]
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
 
     new CameraMovement camera;
     PlayerMovement movement;
-    PlayerInput playerInput;
+    
+    InputController inputController;
     AnimateLean animateLean;
     AnimateCameraLevel animateCamLevel;
 
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
     public void AddMovementType(MovementType move)
     {
         if (movements == null) movements = new List<MovementType>();
-        move.SetPlayerComponents(movement, playerInput);
+        move.SetPlayerComponents(movement, inputController);
 
         if ((move as WallrunMovement) != null) //If this move type is a Wallrunning
             wallrun = (move as WallrunMovement);
@@ -81,10 +82,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Player Instantiated");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
-        playerInput = GetComponent<PlayerInput>();
+        inputController = GetComponent<InputController>();
 
         movement = GetComponent<PlayerMovement>();
         movement.AddToReset(() => { status = Status.walking; });
@@ -141,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         if ((int)status <= 1 || isSprinting())
         {
-            if (playerInput.input.magnitude > 0.02f)
+            if (inputController.input.magnitude > 0.02f)
                 ChangeStatus((shouldSprint()) ? Status.sprinting : Status.walking);
             else
                 ChangeStatus(Status.idle);
@@ -151,7 +153,7 @@ public class PlayerController : MonoBehaviour
     public bool shouldSprint()
     {
         bool sprint = false;
-        sprint = (playerInput.run && playerInput.input.y > 0);
+        sprint = (inputController.run && inputController.input.y > 0);
         if (status != Status.sliding)
         {
             if (!isSprinting()) //If we want to sprint
@@ -225,8 +227,8 @@ public class PlayerController : MonoBehaviour
         if (isSprinting() && isCrouching())
             Uncrouch();
 
-        movement.Move(playerInput.input, isSprinting(), isCrouching());
-        if (movement.grounded && playerInput.Jump())
+        movement.Move(inputController.input, isSprinting(), isCrouching());
+        if (movement.grounded && inputController.Jump())
         {
             if (status == Status.crouching)
             {
@@ -235,7 +237,7 @@ public class PlayerController : MonoBehaviour
             }
 
             movement.Jump(Vector3.up, 1f);
-            playerInput.ResetJump();
+            inputController.ResetJump();
         }
     }
 
@@ -260,13 +262,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!movement.grounded || (int)status > 2) return;
 
-        if (playerInput.run)
+        if (inputController.run)
         {
             Uncrouch();
             return;
         }
 
-        if (playerInput.crouch)
+        if (inputController.crouch)
         {
             if (status != Status.crouching)
                 Crouch(true);

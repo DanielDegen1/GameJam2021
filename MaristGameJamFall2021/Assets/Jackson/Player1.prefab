@@ -186,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4709582224568546246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.221756, y: -2.875, z: 1.3394133}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5850793383232490611}
@@ -891,6 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d28c262c1f7bd24185ece9c13feef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputController: {fileID: 6526632517528651535}
   characterBody: {fileID: 7085721664118310506}
   clampInDegrees: {x: 360, y: 180}
   sensitivity: {x: 0.333, y: 0.333}

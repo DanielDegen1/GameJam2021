@@ -25,7 +25,7 @@ public class SlidingMovement : MovementType
         return true;
     }
 
-    public override void SetPlayerComponents(PlayerMovement move, PlayerInput input)
+    public override void SetPlayerComponents(PlayerMovement move, InputController input)
     {
         base.SetPlayerComponents(move, input);
         slideLimit = movement.controller.slopeLimit - .1f;
@@ -33,12 +33,12 @@ public class SlidingMovement : MovementType
 
     public override void Movement()
     {
-        if (movement.grounded && playerInput.Jump())
+        if (movement.grounded && inputController.Jump())
         {
             if (controlledSlide)
                 slideDir = transform.forward;
             movement.Jump(slideDir + Vector3.up, 1f);
-            playerInput.ResetJump();
+            inputController.ResetJump();
             slideTime = 0;
         }
 
@@ -82,7 +82,7 @@ public class SlidingMovement : MovementType
         }
 
         //Check to slide when running
-        if (playerInput.crouch && canSlide())
+        if (inputController.crouch && canSlide())
         {
             player.ChangeStatus(changeTo, IK);
             slideDir = transform.forward;
@@ -115,7 +115,7 @@ public class SlidingMovement : MovementType
         }
         else if (playerStatus == changeTo)
         {
-            if (playerInput.crouching)
+            if (inputController.crouching)
                 player.Crouch(true);
             else if (!player.Uncrouch()) //Try to uncrouch, if this is false then we cannot uncrouch
                 player.Crouch(true); //So just keep crouched

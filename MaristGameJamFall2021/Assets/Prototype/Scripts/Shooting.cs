@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(InputController))]
 public class Shooting : MonoBehaviour
 {
-    PlayerInput playerInput;
+    InputController inputController;
     RaycastHit hit;
     public bool hasPistol = false; //TODO set back to true once SMG and Shotgun are implemented
     public int pistolClip = 8;
@@ -44,7 +44,7 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        playerInput = GetComponent<PlayerInput>();
+        inputController = GetComponent<InputController>();
         if (hasPistol == true)
         {
             currentClip = pistolClip;
@@ -62,7 +62,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
 
-        if (playerInput.shoot && currentClip > 0)
+        if (inputController.shoot && currentClip > 0)
         {
             if (hasPistol == true && playerCanShoot == true)
             {
@@ -100,7 +100,7 @@ public class Shooting : MonoBehaviour
                 //TODO implement conditional to track if the player can shoot their gun
         }
 
-            if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0 && playerInput.shoot) //TODO implement reloading indicator and delay
+            if (inputController.Reload && currentClip < pistolClip && hasPistol == true || inputController.Reload && hasSMG == true && currentClip < SMGClip || inputController.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0 && inputController.shoot) //TODO implement reloading indicator and delay
             {
               Reload();
             }
@@ -223,7 +223,7 @@ public class Shooting : MonoBehaviour
 
         void OnTriggerStay(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Pickups") && playerInput.Pickup)
+            if (other.gameObject.layer == LayerMask.NameToLayer("Pickups") && inputController.Pickup)
             {
                 Debug.Log("Picked Up: " + other.gameObject.tag);
                 if (other.gameObject.tag == "Pistol" && hasPistol == false)

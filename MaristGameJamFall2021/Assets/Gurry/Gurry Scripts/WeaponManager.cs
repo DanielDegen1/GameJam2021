@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    PlayerInput playerInput;
+    InputController inputController;
     private int selectedWeapon;
     public GameObject[] Weapons;
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
 
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
+        inputController = GetComponent<InputController>();
 
     }
 
@@ -21,7 +21,7 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         /*
-        if (playerInput.Swap)
+        if (inputController.Swap)
         {
             //SelectWEapon() currently commentted out until this is properly implemented    
         }

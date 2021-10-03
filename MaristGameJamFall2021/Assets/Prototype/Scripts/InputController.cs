@@ -4,25 +4,37 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class PlayerInput : MonoBehaviour
+public class InputController : MonoBehaviour
 {
-    private static PlayerInput _instance;
+    private Vector2 inputVal, mouseData;
+    private bool runVal, throwVal, jumpVal, pauseVal, shootVal, crouchVal, crouchingVal, interactVal, reloadVal, pickupVal, swapVal;
+    public int playerIndex;
 
-    public static PlayerInput Instance{
+    public PlayerConfiguration playerConfig;
+
+    Vector2 mouseDelta;
+    
+    /*
+    private static InputController _instance;
+
+    public static InputController Instance{
         get {
             return _instance;
         }
     }
-
-    private PlayerControls playerControls;
+    */
+    
+    public PlayerControls playerControls;
 
     private void Awake() {
+        /*
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
         }
         else {
             _instance = this;
         }
+        */
         playerControls = new PlayerControls();
         Cursor.visible = false;
     }
@@ -35,11 +47,15 @@ public class PlayerInput : MonoBehaviour
         playerControls.Disable();
     }
 
+
+    public void setInput(Vector2 inputData) {
+        inputVal = inputData;
+    }
     public Vector2 input
     {
         get
         {
-            return playerControls.PlayerMovement.Movement.ReadValue<Vector2>();
+            return inputVal;
             /*
             Vector2 i = Vector2.zero;
             i.x = Input.GetAxis("Horizontal");
@@ -55,8 +71,11 @@ public class PlayerInput : MonoBehaviour
         get { return _down; }
     }
 
+    public void SetMouseDelta(Vector2 maus) {
+        mouseData = maus;
+    }
     public Vector2 GetMouseDelta() {
-        return playerControls.PlayerMovement.Look.ReadValue<Vector2>();
+        return mouseData;
     }
 
     public Vector2 raw
@@ -83,45 +102,61 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void setRun(bool runValue){
+        runVal = runValue;
+
+    }
     public bool run
     {
         get {
-            if (playerControls.PlayerMovement.Sprint.ReadValue<float>() > 0) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return runVal;
         }
     }
 
+    public void setCrouch(bool crouchValue) {
+        crouchVal = crouchValue;
+    }
     public bool crouch
     {
-        get { return playerControls.PlayerMovement.Crouch.triggered;}
+        get { return crouchVal;}
+    }
+
+    public void setCrouching(bool crouchingValue) {
+        crouchingVal = crouchingValue;
     }
 
     public bool crouching
     {
-        get { return playerControls.PlayerMovement.Crouching.triggered;}
+        get { return crouchingVal;}
     }
 
+    public void setInteract(bool interactValue) {
+        interactVal = interactValue;
+    }
     public bool interact {
         get{
-            return playerControls.PlayerMovement.Interact.triggered;
+            return interactVal;
         }
     }
 
+    public void setThrow(bool throwValue) {
+        throwVal = throwValue;
+    }
     public bool Throw {
         get{
-            return playerControls.PlayerMovement.Throw.triggered;
+            return throwVal;
         }
     }
 
+    public void setShoot(bool shootValue) {
+        shootVal = shootValue;
+    }
     public bool shoot {
         get {
-            return playerControls.PlayerMovement.Shoot.triggered;
+            return shootVal;
         }
     }
+
     public bool Stasis
     {
         get
@@ -130,34 +165,47 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void setPause(bool pauseValue) {
+        pauseVal = pauseValue;
+    }
     public bool Pause {
         get {
-            return playerControls.PlayerMovement.Pause.triggered;
+            return pauseVal;
         }
     }
 
+
+    public void setReload(bool reloadValue) {
+        reloadVal = reloadValue;
+    }
     public bool Reload
     {
         get
         {
-            return playerControls.PlayerMovement.Reload.triggered;
+            return reloadVal;
         }
     }
 
+    public void setPickup(bool pickupValue) {
+        pickupVal = pickupValue;
+    }
     public bool Pickup
     {
         get
         {
-            return playerControls.PlayerMovement.Pickup.triggered;
+            return pickupVal;
         }
 
     }
 
+    public void setSwap(bool swapValue) {
+        swapVal = swapValue;
+    }
     public bool Swap
     {
         get
         {
-            return playerControls.PlayerMovement.Swap.triggered;
+            return swapVal;
         }
     }
 
@@ -206,8 +254,12 @@ public class PlayerInput : MonoBehaviour
     private Vector2 previous;
     private Vector2 _down;
 
-    private int jumpTimer;
-    private bool jump;
+    public int jumpTimer;
+    public bool jump;
+
+    public void setJump(bool jumpValue) {
+        jumpVal = jumpValue;
+    }
 
     void Start()
     {
@@ -233,6 +285,7 @@ public class PlayerInput : MonoBehaviour
 
     public void FixedUpdate()
     {
+        /*
         if (!(playerControls.PlayerMovement.Jump.ReadValue<float>() > 0))
         {
             jump = false;
@@ -242,11 +295,12 @@ public class PlayerInput : MonoBehaviour
             Debug.Log("Jump");
             jump = true;
         }
+        */
     }
 
     public bool Jump()
     {
-        return jump;
+        return jumpVal;
     }
 
     public void ResetJump()
