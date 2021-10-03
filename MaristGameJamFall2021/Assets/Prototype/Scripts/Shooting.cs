@@ -42,8 +42,8 @@ public class Shooting : MonoBehaviour
     private float randomY;
     private Vector2 localOffset;
     private Vector3 shotgunAngle;
-
-    void Start() {
+    void Start()
+    {
         cam = Camera.main;
         playerInput = GetComponent<PlayerInput>();
         if (hasPistol == true)
@@ -54,15 +54,17 @@ public class Shooting : MonoBehaviour
         {
             currentClip = SMGClip;
         }
-        else if(hasShotgun == true)
+        else if (hasShotgun == true)
         {
             currentClip = shotgunClip;
         }
     }
 
-    void Update() {
+    void Update()
+    {
 
-        if (playerInput.shoot) {
+        if (playerInput.shoot)
+        {
             if (hasPistol == true && playerCanShoot == true)
             {
                 pistolShoot();
@@ -75,199 +77,184 @@ public class Shooting : MonoBehaviour
             {
                 ShotgunShoot();
             }
-            else if (projectileTest == true)
+            else if (playerInput.Swap)
             {
-                InstantiateProjectile(sourcePoint);
+
             }
-            
-            /*else
+            if (playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
             {
-                Debug.Log("Player Attempted to Fire but none of the shoot functions went off. Current clip size is: " + currentClip);
-            }*/
-        }
-        if (playerShot == true) //conditional that goes through once the player has shot. Acts as a "shot CD" so that the player can't just spam
-        {
-            timeSinceLastShot += Time.deltaTime;
-            if (hasPistol == true && timeSinceLastShot >= pistolCD)
-            {
-                playerShot = false;
-                playerCanShoot = true;
-                timeSinceLastShot = 0;
-            }
-            else if(hasShotgun == true && timeSinceLastShot >= shotgunCD)
-            {
-                playerShot = false;
-                playerCanShoot = true;
-                timeSinceLastShot = 0;
-            }
+                timeSinceLastShot += Time.deltaTime;
+                if (hasPistol == true && timeSinceLastShot >= pistolCD)
+                {
+                    playerShot = false;
+                    playerCanShoot = true;
+                    timeSinceLastShot = 0;
+                }
+                else if (hasShotgun == true && timeSinceLastShot >= shotgunCD)
+                {
+                    playerShot = false;
+                    playerCanShoot = true;
+                    timeSinceLastShot = 0;
+                }
                 //TODO implement conditional to track if the player can shoot their gun
-        }
-
-        if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip|| playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0) //TODO implement reloading indicator and delay
-        {
-            Reload();
-        }
-    }
-
-    void ShootProjectile() {
-        Ray raycast = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit)) {
-            destination = hit.point;
-        }
-        
-            InstantiateProjectile(sourcePoint);
-        
-    }
-
-    void InstantiateProjectile(Transform firePoint) {
-        var projectileObject = Instantiate(projectile, firePoint.position, Quaternion.identity) as GameObject;
-        projectileObject.GetComponent<Rigidbody>().velocity = cam.transform.forward * projectileSpeed;
-    }
-    void pistolShoot()
-    {
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
-        {
-            Debug.Log("Pistol hit player");
-            if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
-            {
-                Debug.Log("and they take dmg!");
-                Debug.Log("Player is now invincible");
-                hit.transform.GetComponent<PlayerMovement>().playerHealth -= pistolDMG;
-                hit.transform.GetComponent<PlayerMovement>().invincible = true;
-            }
-            else
-            {
-                Debug.Log("but the player was invincible");
             }
 
-        }
-        else if (hit.collider.gameObject.tag != "Player")
-        {
-            Debug.Log("Pistol hit something besides the player");
-        }
-        else
-        {
-            Debug.Log("Pistol missed");
-        }
-        gunAnim.SetTrigger("Fire");
-        playerShot = true;
-        playerCanShoot = false;
-        currentClip--;
-    }
-    void SMGShoot()
-    {
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
-        {
-            Debug.Log("SMG hit player");
-            if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+            if (playerInput.Reload && currentClip < pistolClip && hasPistol == true || playerInput.Reload && hasSMG == true && currentClip < SMGClip || playerInput.Reload && currentClip < shotgunClip && hasShotgun == true || currentClip <= 0) //TODO implement reloading indicator and delay
             {
-                Debug.Log("and they take dmg!");
-                Debug.Log("Player is now invincible");
-                hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
-                hit.transform.GetComponent<PlayerMovement>().invincible = true;
+                Reload();
             }
-
         }
-        else if (hit.collider.gameObject.tag != "Player")
-        {
-            Debug.Log("SMG hit something besides the player");
-        }
-        else
-        {
-            Debug.Log("SMG missed");
-        }
-
-        currentClip--;
     }
-    void ShotgunShoot()
-    {
-        for (var i = 0; i < shotgunPellets; i++)
-        { //For each pellet create a random origin and fire
 
-            randomX = Random.Range(-1.0f, 1.0f);
-            randomY = Random.Range(-1.0f, 1.0f);
-            localOffset.y += randomY;
-            localOffset.x += randomX;
-            shotgunAngle = new Vector3 (cam.transform.position.x + localOffset.x, cam.transform.position.y + localOffset.y, cam.transform.position.z);
-            Debug.Log("Shotgun fired");
+        void Swap()
+        {
 
-            if (Physics.Raycast(shotgunAngle, cam.transform.forward, out hit, shotgunRange) && hit.collider.gameObject.tag == "Player")
+        }
+
+        void pistolShoot()
+        {
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
             {
-                Debug.Log("Shotgun hit player");
+                Debug.Log("Pistol hit player");
                 if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
                 {
                     Debug.Log("and they take dmg!");
                     Debug.Log("Player is now invincible");
-                    hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
+                    hit.transform.GetComponent<PlayerMovement>().playerHealth -= pistolDMG;
                     hit.transform.GetComponent<PlayerMovement>().invincible = true;
                 }
+                else
+                {
+                    Debug.Log("but the player was invincible");
+                }
+
             }
             else if (hit.collider.gameObject.tag != "Player")
             {
-                Debug.Log("Shotgun hit something besides the player");
+                Debug.Log("Pistol hit something besides the player");
             }
             else
             {
-                Debug.Log("Shotgun missed");
+                Debug.Log("Pistol missed");
             }
+            gunAnim.SetTrigger("Fire");
+            playerShot = true;
+            playerCanShoot = false;
+            currentClip--;
         }
-        playerShot = true;
-        playerCanShoot = false;
-        currentClip--;
-
-    }
-    
-    void Reload()
-    {
-        if (hasPistol == true)
+        void SMGShoot()
         {
-            Debug.Log("Pistol Reloaded");
-            currentClip = pistolClip;
-        }
-        else if(hasSMG == true)
-        {
-            Debug.Log("SMG reloaded");
-            currentClip = SMGClip;
-        }
-        else if(hasShotgun == true)
-        {
-            Debug.Log("Shotgun reloaded");
-            currentClip = shotgunClip;
-        }
-    }
-
-
-    void OnTriggerStay(Collider other)
-    {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Pickups") && playerInput.Pickup)
-        {
-            Debug.Log("Picked Up: "+other.gameObject.tag);
-            if(other.gameObject.tag == "Pistol" && hasPistol == false)
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit) && hit.collider.gameObject.tag == "Player")
             {
-                hasPistol = true;
-                hasSMG = false;
-                hasShotgun = false;
+                Debug.Log("SMG hit player");
+                if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+                {
+                    Debug.Log("and they take dmg!");
+                    Debug.Log("Player is now invincible");
+                    hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
+                    hit.transform.GetComponent<PlayerMovement>().invincible = true;
+                }
+
+            }
+            else if (hit.collider.gameObject.tag != "Player")
+            {
+                Debug.Log("SMG hit something besides the player");
+            }
+            else
+            {
+                Debug.Log("SMG missed");
+            }
+
+            currentClip--;
+        }
+        void ShotgunShoot()
+        {
+            for (var i = 0; i < shotgunPellets; i++)
+            { //For each pellet create a random origin and fire
+
+                randomX = Random.Range(-1.0f, 1.0f);
+                randomY = Random.Range(-1.0f, 1.0f);
+                localOffset.y += randomY;
+                localOffset.x += randomX;
+                shotgunAngle = new Vector3(cam.transform.position.x + localOffset.x, cam.transform.position.y + localOffset.y, cam.transform.position.z);
+                Debug.Log("Shotgun fired");
+
+                if (Physics.Raycast(shotgunAngle, cam.transform.forward, out hit, shotgunRange) && hit.collider.gameObject.tag == "Player")
+                {
+                    Debug.Log("Shotgun hit player");
+                    if (hit.transform.GetComponent<PlayerMovement>().invincible == false)
+                    {
+                        Debug.Log("and they take dmg!");
+                        Debug.Log("Player is now invincible");
+                        hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
+                        hit.transform.GetComponent<PlayerMovement>().invincible = true;
+                    }
+                }
+                else if (hit.collider.gameObject.tag != "Player")
+                {
+                    Debug.Log("Shotgun hit something besides the player");
+                }
+                else
+                {
+                    Debug.Log("Shotgun missed");
+                }
+            }
+            playerShot = true;
+            playerCanShoot = false;
+            currentClip--;
+
+        }
+
+        void Reload()
+        {
+            if (hasPistol == true)
+            {
+                Debug.Log("Pistol Reloaded");
                 currentClip = pistolClip;
             }
-            else if (other.gameObject.tag == "SMG" && hasSMG == false)
+            else if (hasSMG == true)
             {
-                hasPistol = false;
-                hasSMG = true;
-                hasShotgun = false; 
+                Debug.Log("SMG reloaded");
                 currentClip = SMGClip;
             }
-            else if (other.gameObject.tag == "Shotgun" && hasShotgun == false)
+            else if (hasShotgun == true)
             {
-                hasPistol = false;
-                hasSMG = false;
-                hasShotgun = true;
+                Debug.Log("Shotgun reloaded");
                 currentClip = shotgunClip;
             }
-            other.GetComponent<PickupObject>().pickedUp = true;
-            other.GetComponent<PickupObject>().objectNotMoved = true;
         }
 
+
+        void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Pickups") && playerInput.Pickup)
+            {
+                Debug.Log("Picked Up: " + other.gameObject.tag);
+                if (other.gameObject.tag == "Pistol" && hasPistol == false)
+                {
+                    hasPistol = true;
+                    hasSMG = false;
+                    hasShotgun = false;
+                    currentClip = pistolClip;
+                }
+                else if (other.gameObject.tag == "SMG" && hasSMG == false)
+                {
+                    hasPistol = false;
+                    hasSMG = true;
+                    hasShotgun = false;
+                    currentClip = SMGClip;
+                }
+                else if (other.gameObject.tag == "Shotgun" && hasShotgun == false)
+                {
+                    hasPistol = false;
+                    hasSMG = false;
+                    hasShotgun = true;
+                    currentClip = shotgunClip;
+                }
+                other.GetComponent<PickupObject>().pickedUp = true;
+                other.GetComponent<PickupObject>().objectNotMoved = true;
+            }
+
+        }
     }
-}
+
