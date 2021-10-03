@@ -23,7 +23,8 @@ public class Shooting : MonoBehaviour
     public float shotgunRange = 400f;
     public int shotgunPellets = 7;
 
-
+    private int score = 0;
+    public int targetScore = 5;
     [HideInInspector]
     public Camera cam;
     [SerializeField]
@@ -61,7 +62,11 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-
+        if(score >= targetScore)
+        {
+            Debug.Log("Player wins :)");
+            //goto end screen
+        }
         if (playerInput.shoot && currentClip > 0)
         {
             if (hasPistol == true && playerCanShoot == true)
@@ -118,6 +123,8 @@ public class Shooting : MonoBehaviour
                     Debug.Log("Player is now invincible");
                     hit.transform.GetComponent<PlayerMovement>().playerHealth -= pistolDMG;
                     hit.transform.GetComponent<PlayerMovement>().invincible = true;
+                    score++;
+                Debug.Log("Player's current score is " + score);
                 }
                 else
                 {
@@ -149,9 +156,12 @@ public class Shooting : MonoBehaviour
                     Debug.Log("Player is now invincible");
                     hit.transform.GetComponent<PlayerMovement>().playerHealth -= SMGDMG;
                     hit.transform.GetComponent<PlayerMovement>().invincible = true;
-                }
+                score++;
+                Debug.Log("Player's current score is " + score);
 
             }
+
+        }
             else if (hit.collider.gameObject.tag != "Player")
             {
                 Debug.Log("SMG hit something besides the player");
@@ -184,8 +194,11 @@ public class Shooting : MonoBehaviour
                         Debug.Log("Player is now invincible");
                         hit.transform.GetComponent<PlayerMovement>().playerHealth -= shotgunDMG;
                         hit.transform.GetComponent<PlayerMovement>().invincible = true;
-                    }
+                    score++;
+                    Debug.Log("Player's current score is " + score);
+
                 }
+            }
                 else if (hit.collider.gameObject.tag != "Player")
                 {
                     Debug.Log("Shotgun hit something besides the player");
