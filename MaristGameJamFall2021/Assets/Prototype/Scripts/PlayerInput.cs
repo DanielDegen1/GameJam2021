@@ -153,6 +153,13 @@ public class PlayerInput : MonoBehaviour
 
     }
 
+    public bool Swap
+    {
+        get
+        {
+            return playerControls.PlayerMovement.Swap.triggered;
+        }
+    }
 
     /*
     public bool throw {
