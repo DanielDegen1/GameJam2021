@@ -32,6 +32,8 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private Animator gunAnim;
     public Transform sourcePoint;
+    public AudioClip gunshotSound;
+    private AudioSource audioSource;
     public float projectileSpeed = 30f;
     private float timeSinceLastShot = 0;
     private bool playerShot = false;
@@ -46,6 +48,9 @@ public class Shooting : MonoBehaviour
     {
         cam = Camera.main;
         inputController = GetComponent<InputController>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = gunshotSound;
+
         if (hasPistol == true)
         {
             currentClip = pistolClip;
@@ -58,6 +63,7 @@ public class Shooting : MonoBehaviour
         {
             currentClip = shotgunClip;
         }
+
     }
 
     void Update()
@@ -141,6 +147,7 @@ public class Shooting : MonoBehaviour
                 Debug.Log("Pistol missed");
             }
             gunAnim.SetTrigger("Fire");
+            audioSource.Play();
             playerShot = true;
             playerCanShoot = false;
             currentClip--;
