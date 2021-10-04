@@ -16,6 +16,7 @@ public class voicelineManager : MonoBehaviour
     {
         randDelay = Random.Range(audioDelayMin, audioDelayMax);
         Debug.Log("Audio should play after " + randDelay);
+        chosenLine = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
