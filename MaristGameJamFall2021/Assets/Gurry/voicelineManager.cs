@@ -11,31 +11,41 @@ public class voicelineManager : MonoBehaviour
     private float timer;
     private int randLine;
     private int lastLine;
-    private AudioSource chosenLine;    // Start is called before the first frame update
+    public AudioSource audioManager;    // Start is called before the first frame update
     void Start()
     {
         randDelay = Random.Range(audioDelayMin, audioDelayMax);
         Debug.Log("Audio should play after " + randDelay);
-        chosenLine = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
         //Debug.Log("Audio Timer: " + timer);
-        while(randLine == lastLine)
+        if(!audioManager.isPlaying)
+        {
+            timer += Time.deltaTime;
+        }
+        while (randLine == lastLine)
         {
             randLine = Random.Range(0, voiceLines.Length);
-            Debug.Log("Line chosen");
+            Debug.Log("Line chosen was " + voiceLines[randLine].name);
         }
-        chosenLine.clip = voiceLines[randLine];
         if (timer >= randDelay)
         {
-            chosenLine.Play();
-            timer = 0;
-            randDelay = Random.Range(audioDelayMin, audioDelayMax);
-            Debug.Log("Audio Played");
+            if(!audioManager.isPlaying)
+            {
+                audioManager.clip = voiceLines[randLine];
+                audioManager.Play();
+                timer = 0;
+                randDelay = Random.Range(audioDelayMin, audioDelayMax);
+                randLine = Random.Range(0, voiceLines.Length);
+                Debug.Log("Audio Played");
+            }
+            else
+            {
+                Debug.Log("waiting for audio to stop before playing");
+            }
         }
     }
 }
