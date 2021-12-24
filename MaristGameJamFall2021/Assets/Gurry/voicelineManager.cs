@@ -29,6 +29,7 @@ public class voicelineManager : MonoBehaviour
         while (randLine == lastLine)
         {
             randLine = Random.Range(0, voiceLines.Length);
+            
             Debug.Log("Line chosen was " + voiceLines[randLine].name);
         }
         if (timer >= randDelay)
@@ -39,6 +40,7 @@ public class voicelineManager : MonoBehaviour
                 audioManager.Play();
                 timer = 0;
                 randDelay = Random.Range(audioDelayMin, audioDelayMax);
+                lastLine = randLine;
                 randLine = Random.Range(0, voiceLines.Length);
                 Debug.Log("Audio Played");
             }
